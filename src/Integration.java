@@ -15,6 +15,10 @@ public class Integration implements AM {
         double leftBound = integral.getLeftBound();
         double rightBound = integral.getRightBound();
 
+        System.out.println("numPoints: " + numPoints);
+        System.out.println("leftBound: " + leftBound);
+        System.out.println("rightBound: " + rightBound);
+
         Random rand = new Random();
 
         double sum = 0;
@@ -28,6 +32,7 @@ public class Integration implements AM {
         double avg = sum / numPoints;
         double res = avg * (rightBound - leftBound);
 
+        System.out.println("result: " + res);
         info.parent.write(res);
     }
 }

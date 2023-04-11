@@ -1,8 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import parcs.*;
 
@@ -16,6 +15,7 @@ public class Main {
         point p = info.createPoint();
         channel c = p.createChannel();
         p.execute("Integration");
+
         c.write(integral);
 
         System.out.println("Waiting for result...");
@@ -31,11 +31,8 @@ public class Main {
         int numPoints = sc.nextInt();
 
         String currentPath = new java.io.File("..").getCanonicalPath();
-        URLClassLoader classLoader = new URLClassLoader(new URL[]{new URL("file://" + currentPath + "/function/")});
-        Class<?> clazz = classLoader.loadClass(functorClassName);
+        byte[] classBytes = Files.readAllBytes(Path.of(currentPath + "/function/Function.class"));
 
-        Object function = clazz.newInstance();
-
-        return new MonteCarloIntegral(numPoints, leftBound, rightBound, "evaluate", function);
+        return new MonteCarloIntegral(numPoints, leftBound, rightBound, classBytes);
     }
 }

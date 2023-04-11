@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.lang.reflect.Method;
 import parcs.*;
 
 public class Integration implements AM {
@@ -10,14 +11,28 @@ public class Integration implements AM {
         double leftBound = integral.getLeftBound();
         double rightBound = integral.getRightBound();
 
+        Class<?> classFunctor = null;
+        Method evaluateMethod = null;
+        Object functor = null;
+        try {
+            classFunctor = integral.getLoadedFunction();
+            evaluateMethod = classFunctor.getDeclaredMethod("evaluate", double.class);
+            functor = classFunctor.newInstance();
+        } catch (Exception e) {                
+            System.out.println("Exception caught during functor instantiation.");
+            System.out.println(e);
+            info.parent.write(Double.NaN);
+            return;
+        }
+
         Random rand = new Random();
-                
+
         double sum = 0;
         for (int i = 0; i < numPoints; i++) {
             double x = leftBound + rand.nextDouble() * (rightBound - leftBound);
 
             try {
-                double y = integral.calculateFunction(x);
+                double y = (double)evaluateMethod.invoke(functor, x);;
                 sum += y;
             } catch (Exception e) {                
                 System.out.println("Exception caught during function calculation.");

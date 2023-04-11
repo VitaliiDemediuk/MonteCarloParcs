@@ -5,24 +5,23 @@ public class MonteCarloIntegral implements Serializable {
     private int numPoints;
     private double leftBound;
     private double rightBound;
-    private String methodName;
-    private Object function;
+    private byte[] classBytes;
 
-    public double calculateFunction(double x) throws Exception {
-        Method method = Class.forName("Function").getMethod(methodName, double.class);
-        double result = (double)method.invoke(function, x);
-        return result;
+    public Class<?> getLoadedFunction() throws Exception {
+        return new ClassLoader() {
+            public Class<?> defineClass(String name, byte[] bytes) {
+                return defineClass(name, bytes, 0, bytes.length);
+            }
+        }.defineClass("Function", classBytes);
     }
 
     public MonteCarloIntegral(int numPoints, double leftBound,
-                              double rightBound, String methodName,
-                              Object function)
+                              double rightBound, byte[] classBytes)
     {
         this.numPoints = numPoints;
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        this.methodName = methodName;
-        this.function = function;
+        this.classBytes = classBytes;
     }
 
     int getNumPoints() {

@@ -41,7 +41,7 @@ public class Main {
         double rightBound = sc.nextDouble();
         int numPoints = sc.nextInt();
 
-        double intervalSize = (rightBound - leftBound) / numPoints;
+        double intervalSize = (rightBound - leftBound) / POINT_COUNT;
 
         ArrayList<MonteCarloIntegralInfo> res = new ArrayList<MonteCarloIntegralInfo>();
 

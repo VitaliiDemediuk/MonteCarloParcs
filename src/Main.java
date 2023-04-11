@@ -31,11 +31,7 @@ public class Main {
         double rightBound = sc.nextDouble();
         int numPoints = sc.nextInt();
 
-        String currentPath = new java.io.File("..").getCanonicalPath();
-        Path p = Path.of(currentPath + "/function/Function.class");
-        byte[] classBytes = Files.readAllBytes(p);
-
-        MonteCarloIntegralInfo integral = new MonteCarloIntegralInfo(numPoints, leftBound, rightBound, classBytes);
+        MonteCarloIntegralInfo integral = new MonteCarloIntegralInfo(numPoints, leftBound, rightBound);
 
         return integral;
     }

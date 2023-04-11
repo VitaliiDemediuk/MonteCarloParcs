@@ -5,8 +5,7 @@ public class MonteCarloIntegralInfo implements Serializable {
     private double leftBound;
     private double rightBound;
 
-    public MonteCarloIntegralInfo(int numPoints, double leftBound,
-                              double rightBound, byte[] classBytes)
+    public MonteCarloIntegralInfo(int numPoints, double leftBound, double rightBound)
     {
         this.numPoints = numPoints;
         this.leftBound = leftBound;
@@ -18,10 +17,10 @@ public class MonteCarloIntegralInfo implements Serializable {
     }
 
     double getLeftBound() {
-        return numPoints;
+        return leftBound;
     }
 
     double getRightBound() {
-        return numPoints;
+        return rightBound;
     }
 }

@@ -34,9 +34,8 @@ public class Main {
         URLClassLoader classLoader = new URLClassLoader(new URL[]{new URL("file://" + currentPath + "/function/")});
         Class<?> clazz = classLoader.loadClass(functorClassName);
 
-        Method method = clazz.getDeclaredMethod("evaluate", double.class);
         Object function = clazz.newInstance();
 
-        return new MonteCarloIntegral(numPoints, leftBound, rightBound, method, function);
+        return new MonteCarloIntegral(numPoints, leftBound, rightBound, "evaluate", function);
     }
 }

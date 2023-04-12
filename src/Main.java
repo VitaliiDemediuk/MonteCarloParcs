@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import parcs.*;
 
 public class Main {
-    private final static int POINT_COUNT = 4;
 
     public static void main(String[] args) throws Exception {
         task curtask = new task();
@@ -37,6 +36,7 @@ public class Main {
     public static ArrayList<MonteCarloIntegralInfo> fromFile(String infoFile) throws Exception {        
         Scanner sc = new Scanner(new File(infoFile));
 
+        int POINT_COUNT = sc.nextInt();
         double leftBound = sc.nextDouble();
         double rightBound = sc.nextDouble();
         int numPoints = sc.nextInt();
